@@ -12,6 +12,16 @@
 <div class="circle outer"></div>
 <div id="border"></div>
 <div id="crosshair">+</div>
+      
+    <audio controls style="
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+    margin: 0;
+    z-index: 99999;">
+  <source src="/code/storm/thunder.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
   
       <script>let body=document.getElementsByTagName("body")[0],text=document.getElementById("text"),canvas=document.createElement("canvas"),context=canvas.getContext("2d"),moveFlag=!1;canvas.width=window.innerWidth,canvas.height=window.innerHeight,document.body.appendChild(canvas);let particles=[];class Particle{constructor(t=Math.floor(Math.random()*canvas.width)+1,s=Math.floor(Math.random()*canvas.height)+1,o=Math.random(),a=.3,i="hsl("+Math.floor(51*Math.random()+270)+", 50%, 50%)"){this.startPosX=t,this.startPosY=s,this.radius=o,this.speed=a,this.color=i,this.posX=this.startPosX,this.posY=this.startPosY,this.finalPosY,this.arct=this.calcArct(),this.draw()}update(){this.move(),this.draw()}draw(){context.beginPath(),context.shadowBlur=8,context.shadowColor=this.color,1==moveFlag||this.speed>.3?(context.moveTo(this.posX,this.posY),context.lineTo(this.posX+this.speed*Math.cos(this.arct),this.posY+this.speed*Math.sin(this.arct)),context.strokeStyle=this.color,context.stroke(),context.stroke()):(context.fillStyle=this.color,context.arc(this.posX,this.posY,this.radius,0,2*Math.PI,!0),context.closePath(),context.fill())}move(){this.posY=this.posY+this.speed*Math.sin(this.arct),this.posX=this.posX+this.speed*Math.cos(this.arct),(this.posY>canvas.height||this.posY<0||this.posX>canvas.width||this.posX<0)&&(this.startPosY=Math.floor(Math.random()*canvas.height),this.startPosX=Math.floor(Math.random()*canvas.width),this.radius=Math.random(),this.arct=this.calcArct(),this.posY=this.startPosY,this.posX=this.startPosX),1==moveFlag?(this.speed<50&&(this.speed=this.speed+.3),this.finalPosY=this.posY+this.speed*Math.sin(this.arct),(this.posY>canvas.height||this.posY<0||this.posX>canvas.width||this.posX<0)&&(this.startPosY=Math.floor(Math.random()*canvas.height),this.startPosX=Math.floor(Math.random()*canvas.width),this.radius=Math.random(),this.arct=this.calcArct(),this.posY=this.startPosY,this.posX=this.startPosX)):this.speed>.3?this.speed=this.speed-.3:this.speed=.3}calcArct(t=this.startPosY,s=this.startPosX,o=canvas.height/2,a=canvas.width/2){let i=t-o,h=s-a;return Math.atan2(i,h)}}for(let t=0;t<150;t++)particles[t]=new Particle;function animationTime(){context.clearRect(0,0,canvas.width,canvas.height),particles.forEach(t=>{t.update()}),window.requestAnimationFrame(animationTime)}function isArrowDown(t){"38"==(t=t||window.event).keyCode&&(moveFlag=!0,text.classList.remove("on-off"))}function isArrowUp(t){"38"==(t=t||window.event).keyCode&&(moveFlag=!1,text.classList.add("on-off"))}document.onkeydown=function(t){isArrowDown(t)},document.onkeyup=function(t){isArrowUp(t)},window.requestAnimationFrame(animationTime);</script>
     </body>
